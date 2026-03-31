@@ -379,6 +379,43 @@ a:hover {
 }
 
 
+/* ── Gallery Filters ── */
+.gallery-filters {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.gallery-filter-btn {
+    font-family: var(--font-body);
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 0.75rem 2.25rem;
+    border: 2px solid var(--color-accent);
+    color: var(--color-white);
+    background-color: transparent;
+    cursor: pointer;
+    transition: all var(--transition-base);
+}
+
+.gallery-filter-btn:hover {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+.gallery-filter-btn.active {
+    background-color: var(--color-accent);
+    color: var(--color-black);
+}
+
+.gallery-item.gallery-hidden {
+    display: none;
+}
+
+
 /* ── Gallery ── */
 .gallery-grid {
     display: grid;

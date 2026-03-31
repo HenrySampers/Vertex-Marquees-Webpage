@@ -127,9 +127,9 @@
                         <h2 class="mb-1">Get a Free Quote</h2>
                         <p class="subtitle mb-4">Fill in the form below and we'll get back to you</p>
 
-                        <!-- Netlify Forms: handles submission and emails you automatically -->
-                        <form name="quote-request" method="POST" data-netlify="true" action="thank-you.html" id="quoteForm" novalidate>
-                            <input type="hidden" name="form-name" value="quote-request">
+                        <div id="formError" style="display:none;" class="alert alert-danger" role="alert"></div>
+
+                        <form id="quoteForm" novalidate>
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name *</label>
@@ -308,17 +308,45 @@
             }
         })();
 
-        // Bootstrap form validation
-        (function() {
-            var form = document.getElementById('quoteForm');
-            form.addEventListener('submit', function(event) {
-                if (!form.checkValidity()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                }
+        // Form submission → Netlify Function
+        document.getElementById('quoteForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+
+            var form    = this;
+            var errorDiv = document.getElementById('formError');
+            errorDiv.style.display = 'none';
+
+            if (!form.checkValidity()) {
                 form.classList.add('was-validated');
-            }, false);
-        })();
+                return;
+            }
+
+            var btn = form.querySelector('button[type="submit"]');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>Sending...';
+
+            try {
+                var response = await fetch('/.netlify/functions/send-quote', {
+                    method:  'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body:    new URLSearchParams(new FormData(form)).toString()
+                });
+
+                var data = await response.json();
+
+                if (response.ok && data.success) {
+                    window.location.href = 'thank-you.html';
+                } else {
+                    throw new Error(data.error || 'Something went wrong. Please try again.');
+                }
+            } catch (err) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="bi bi-send me-2"></i>Send Quote Request';
+                errorDiv.textContent = err.message;
+                errorDiv.style.display = 'block';
+                errorDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+        });
 
         window.addEventListener('scroll', function() {
             document.querySelector('.navbar-custom').classList.toggle('scrolled', window.scrollY > 50);

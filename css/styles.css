@@ -183,6 +183,15 @@ a:hover {
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
+@media (max-width: 991.98px) {
+    .navbar-custom .navbar-collapse {
+        background-color: rgba(10, 10, 10, 0.97);
+        padding: 1rem 1.5rem 1.5rem;
+        margin-top: 0.5rem;
+        border-top: 1px solid rgba(201, 169, 110, 0.2);
+    }
+}
+
 .social-icons a {
     color: var(--color-white);
     font-size: 1.1rem;
@@ -245,8 +254,8 @@ a:hover {
 /* Page hero (shorter, for inner pages) */
 .page-hero {
     position: relative;
-    height: 50vh;
-    min-height: 300px;
+    height: 42vh;
+    min-height: 340px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -270,6 +279,41 @@ a:hover {
 .page-hero-content {
     position: relative;
     z-index: 2;
+    padding: 0 1.5rem;
+}
+
+.page-hero-content h1 {
+    margin-bottom: 0.4rem;
+}
+
+.page-hero-divider {
+    width: 50px;
+    height: 2px;
+    background-color: var(--color-accent);
+    margin: 0.75rem auto 1rem;
+}
+
+.page-hero-info {
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: var(--color-light-grey);
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.03em;
+}
+
+.page-hero-info a {
+    color: var(--color-light-grey);
+}
+
+.page-hero-info a:hover {
+    color: var(--color-accent);
+}
+
+.page-hero-info .sep {
+    margin: 0 0.6rem;
+    color: var(--color-accent);
+    opacity: 0.6;
 }
 
 
@@ -792,6 +836,23 @@ a:hover {
 
     .hero-logo {
         max-width: 250px;
+    }
+
+    .page-hero {
+        height: auto;
+        padding: 6rem 0 3rem;
+    }
+
+    .page-hero-info {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.4rem;
+        font-size: 0.82rem;
+    }
+
+    .page-hero-info .sep {
+        display: none;
     }
 
     .section {

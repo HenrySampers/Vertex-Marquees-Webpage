@@ -342,7 +342,9 @@
                     body:    new URLSearchParams(new FormData(form)).toString()
                 });
 
-                var data = await response.json();
+                var text = await response.text();
+                var data = {};
+                try { data = JSON.parse(text); } catch(e) {}
 
                 if (response.ok && data.success) {
                     window.location.href = 'thank-you.html';

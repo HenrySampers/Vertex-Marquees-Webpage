@@ -151,12 +151,12 @@ a:hover {
 }
 
 .navbar-custom .navbar-brand img {
-    height: 50px;
+    height: 70px;
     transition: height var(--transition-base);
 }
 
 .navbar-custom.scrolled .navbar-brand img {
-    height: 40px;
+    height: 55px;
 }
 
 .navbar-custom .nav-link {

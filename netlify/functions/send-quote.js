@@ -6,7 +6,6 @@ const PACKAGE_LABELS = {
     'double-party': 'Double Party Package',
     'single-event': 'Single Event Package',
     'double-event': 'Double Event Package',
-    'bespoke':      'Bespoke / Custom',
     'not-sure':     'Not sure yet',
 };
 

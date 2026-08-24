@@ -1,7 +1,13 @@
 [build]
-  command   = "npm install"
+  command   = "npm ci && npm --prefix netlify/functions ci"
   functions = "netlify/functions"
   publish   = "."
+
+# This is a static HTML site. Force Netlify Dev to serve the project files
+# directly instead of trying to detect it as a Node application.
+[dev]
+  framework = "#static"
+  publish = "."
 
 [[headers]]
   for = "/*"
@@ -9,3 +15,6 @@
     X-Frame-Options        = "DENY"
     X-Content-Type-Options = "nosniff"
     Referrer-Policy        = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000; includeSubDomains; preload"
+    Permissions-Policy     = "camera=(), microphone=(), geolocation=(), payment=(), usb=()"
+    Content-Security-Policy = "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self'; img-src 'self' data: blob:; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; connect-src 'self' https://cdn.jsdelivr.net https://challenges.cloudflare.com; frame-src https://challenges.cloudflare.com"

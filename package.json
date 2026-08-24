@@ -3,6 +3,6 @@
   "version": "1.0.0",
   "description": "Vertex Marquees website",
   "dependencies": {
-    "nodemailer": "^6.9.0"
+    "nodemailer": "^9.0.5"
   }
 }

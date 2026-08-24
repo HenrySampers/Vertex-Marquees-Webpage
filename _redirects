@@ -5,6 +5,4 @@
 /contact.php    /contact.html   301
 /thank-you.php  /thank-you.html 301
 /404.php        /404.html       301
-
-# Custom 404 page
-/*              /404.html        404
+/admin           /admin.html     200

@@ -8,23 +8,26 @@
     var lightboxVideo   = document.getElementById('lightbox-video');
     var lightboxVideoSrc = document.getElementById('lightbox-video-src');
     var lightboxCounter = document.getElementById('lightbox-counter');
-    var allItems        = document.querySelectorAll('.gallery-item');
     var currentIndex    = 0;
 
+    function getAllItems() {
+        return Array.from(document.querySelectorAll('.gallery-item'));
+    }
+
     function getVisibleItems() {
-        return Array.from(allItems).filter(function(item) {
+        return getAllItems().filter(function(item) {
             return item.style.display !== 'none';
         });
     }
 
-    // Open lightbox on item click
-    allItems.forEach(function(item) {
-        item.addEventListener('click', function() {
-            var visible = getVisibleItems();
-            currentIndex = visible.indexOf(this);
-            if (currentIndex === -1) return;
-            openLightbox();
-        });
+    // Delegated click handling also supports images loaded by the media manager.
+    document.addEventListener('click', function(event) {
+        var item = event.target.closest('.gallery-item');
+        if (!item) return;
+        var visible = getVisibleItems();
+        currentIndex = visible.indexOf(item);
+        if (currentIndex === -1) return;
+        openLightbox();
     });
 
     function openLightbox() {

@@ -17,6 +17,7 @@ yarn-error.log*
 # =========================
 .env
 .env.local
+.env.development
 .env.production
 
 # =========================
@@ -28,6 +29,8 @@ yarn-error.log*
 # Node modules (if using npm for Bootstrap)
 # =========================
 /node_modules/
+**/node_modules/
+.netlify/
 
 # =========================
 # IDE files

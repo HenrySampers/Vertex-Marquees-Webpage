@@ -15,7 +15,7 @@
     <meta property="og:image" content="https://vertexmarquees.ie/images/hero/hero-contact.jpg">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="images/logo/favicon.ico">
+    <link rel="icon" type="image/png" href="images/logo/vertex-marquee-logo.png">
 
     <!-- Preload hero image -->
     <link rel="preload" as="image" href="images/hero/hero-contact.jpg">
@@ -64,7 +64,7 @@
     <main>
 
     <!-- Page Hero -->
-    <section class="page-hero" style="background-image: url('images/hero/hero-contact.jpg');" aria-label="Contact page banner">
+    <section class="page-hero" data-media-slot="hero-contact" style="background-image: url('images/hero/hero-contact.jpg');" aria-label="Contact page banner">
         <div class="page-hero-content">
             <h1>Contact Us</h1>
             <div class="page-hero-divider"></div>
@@ -140,6 +140,11 @@
                         <div id="formError" style="display:none;" class="alert alert-danger" role="alert"></div>
 
                         <form id="quoteForm" novalidate>
+                            <input type="hidden" id="form_loaded_at" name="form_loaded_at" value="">
+                            <div class="visually-hidden" aria-hidden="true">
+                                <label for="website">Leave this field empty</label>
+                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
 
                             <div class="mb-3">
                                 <label for="name" class="form-label">Full Name *</label>
@@ -227,9 +232,10 @@
                                     <option value="Grass / Lawn">Grass / Lawn</option>
                                     <option value="Concrete / Paving">Concrete / Paving</option>
                                     <option value="Gravel">Gravel</option>
-                                    <option value="Decking / Wood">Decking / Wood</option>
-                                    <option value="Not Sure">Not Sure</option>
-                                </select>
+                                        <option value="Decking / Wood">Decking / Wood</option>
+                                        <option value="Not Sure">Not Sure</option>
+                                        <option value="Other">Other</option>
+                                    </select>
                             </div>
 
                             <div class="mb-3">
@@ -243,10 +249,13 @@
                                 <input class="form-check-input" type="checkbox" id="gdpr_consent" name="gdpr_consent" required>
                                 <label class="form-check-label" for="gdpr_consent">
                                     I consent to Vertex Marquees collecting my data via this form to respond to my enquiry.
-                                    My information will not be shared with third parties. *
+                                    Please read the <a href="privacy.html">Privacy Notice</a>. *
                                 </label>
                                 <div class="invalid-feedback">You must consent to data collection to submit this form.</div>
                             </div>
+
+                            <div id="turnstile-container" class="mb-3" aria-live="polite"></div>
+                            <p class="small text-muted mb-4">We use security checks to prevent spam and protect your enquiry.</p>
 
                             <button type="submit" class="btn btn-vertex-solid w-100">
                                 <i class="bi bi-send me-2" aria-hidden="true"></i>Send Quote Request
@@ -294,15 +303,33 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; <span id="year"></span> Vertex Marquees. All rights reserved.</p>
-                <p class="small">We collect your data only to respond to your enquiry. We do not share your information with third parties.</p>
+                <p class="small"><a href="privacy.html">Privacy Notice</a></p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="js/site-config.js"></script>
+    <script src="js/media-loader.js"></script>
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
+        document.getElementById('form_loaded_at').value = String(Date.now());
+
+        // Add a Cloudflare Turnstile widget after a production site key has been supplied.
+        // The server verifies it only when TURNSTILE_SECRET_KEY is configured in Netlify.
+        (function() {
+            var key = window.TURNSTILE_SITE_KEY;
+            if (!key) return;
+            var script = document.createElement('script');
+            script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+            script.async = true;
+            script.defer = true;
+            script.onload = function() {
+                window.turnstile.render('#turnstile-container', { sitekey: key, theme: 'light', size: 'flexible' });
+            };
+            document.head.appendChild(script);
+        })();
 
         // Pre-select package from URL parameter (e.g. contact.html?package=single-party)
         (function() {

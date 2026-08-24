@@ -89,7 +89,7 @@
     <main>
 
     <!-- Page Hero -->
-    <section class="page-hero" style="background-image: url('images/hero/hero-services.jpg');" aria-label="Services page banner">
+    <section class="page-hero" data-media-slot="hero-services" style="background-image: url('images/hero/hero-services.jpg');" aria-label="Services page banner">
         <div class="page-hero-content">
             <h1>Our Marquee Hire Services</h1>
             <div class="page-hero-divider"></div>
@@ -251,13 +251,14 @@
             </div>
             <div class="footer-bottom">
                 <p>&copy; <span id="year"></span> Vertex Marquees. All rights reserved.</p>
-                <p class="small">We collect your data only to respond to your enquiry. We do not share your information with third parties.</p>
+                <p class="small"><a href="privacy.html">Privacy Notice</a></p>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS Bundle -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/media-loader.js"></script>
     <script>
         document.getElementById('year').textContent = new Date().getFullYear();
         window.addEventListener('scroll', function() {

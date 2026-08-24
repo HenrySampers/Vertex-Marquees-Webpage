@@ -2,6 +2,7 @@
   "name": "vertex-marquees-functions",
   "version": "1.0.0",
   "dependencies": {
-    "nodemailer": "^6.9.13"
+    "@netlify/blobs": "^11.0.1",
+    "nodemailer": "^9.0.5"
   }
 }

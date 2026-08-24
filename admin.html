@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
+    <title>Media Manager | Vertex Marquees</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Raleway:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/admin.css">
+</head>
+<body>
+    <a class="skip-link" href="#admin-main">Skip to content</a>
+    <main id="admin-main" class="admin-shell">
+        <section id="login-view" class="auth-card" aria-labelledby="login-title">
+            <img src="images/logo/vertex-marquee-logo.png" alt="Vertex Marquees" class="admin-logo">
+            <p class="eyebrow">Private media manager</p>
+            <h1 id="login-title">Sign in</h1>
+            <p>Use the owner password to manage gallery photos and page images.</p>
+            <form id="login-form">
+                <label for="admin-password">Password</label>
+                <div class="password-row">
+                    <input id="admin-password" name="password" type="password" autocomplete="current-password" required>
+                    <button type="button" class="text-button" id="password-toggle" aria-controls="admin-password" aria-pressed="false">Show</button>
+                </div>
+                <button class="primary-button" type="submit">Sign in</button>
+            </form>
+            <p id="login-status" class="status" role="status" aria-live="polite"></p>
+            <a class="back-link" href="index.html">Return to website</a>
+        </section>
+
+        <section id="dashboard-view" hidden aria-labelledby="dashboard-title">
+            <header class="admin-header">
+                <a class="admin-brand" href="index.html" aria-label="Return to Vertex Marquees website">
+                    <img src="images/logo/vertex-marquee-logo.png" alt="" class="header-logo">
+                </a>
+                <div class="admin-title-group">
+                    <p class="eyebrow">Vertex Marquees</p>
+                    <h1 id="dashboard-title">Media manager</h1>
+                </div>
+                <button id="logout-button" class="secondary-button" type="button">Sign out</button>
+            </header>
+            <p id="dashboard-status" class="status" role="status" aria-live="polite"></p>
+
+            <section class="panel upload-panel" aria-labelledby="upload-title">
+                <h2 id="upload-title">Upload a photo</h2>
+                <p class="help-text">JPG, PNG or WebP only, up to 4 MB. Add a useful description for visitors using screen readers.</p>
+                <form id="upload-form">
+                    <label for="image-file">Photo</label>
+                    <input id="image-file" name="image" type="file" accept="image/jpeg,image/png,image/webp" required>
+                    <label for="image-alt">Photo description</label>
+                    <input id="image-alt" name="alt" type="text" maxlength="180" required placeholder="e.g. Double pagoda marquee at a garden party">
+                    <label class="checkbox-label"><input id="add-to-gallery" type="checkbox" checked> Add this photo to the public gallery</label>
+                    <button class="primary-button" type="submit">Upload photo</button>
+                </form>
+            </section>
+
+            <section class="panel library-panel" aria-labelledby="library-title">
+                <div class="library-heading"><div><h2 id="library-title">Gallery and image library</h2><p class="help-text">Drag a photo card into the order you want for the public gallery. You can also use Move up and Move down. Use Show in gallery or Hide from gallery to control whether visitors can see it.</p></div><p id="image-count" class="count"></p></div>
+                <div id="media-grid" class="media-grid" aria-live="polite"></div>
+            </section>
+        </section>
+    </main>
+    <script src="js/admin.js"></script>
+</body>
+</html>

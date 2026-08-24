@@ -229,7 +229,8 @@ exports.handler = async function(event) {
     const eventType  = clean(params.get('event_type'), 40) || 'Not specified';
     const pkgKey     = clean(params.get('package'), 30);
     const groundType = clean(params.get('ground_type'), 40) || 'Not specified';
-    const details    = clean(params.get('details'), 3000);
+    const rawDetails = String(params.get('details') || '');
+    const details    = clean(rawDetails, 3000);
     const consent    = params.get('gdpr_consent');
     const honeypot   = params.get('website');
     const formLoadedAt = Number(params.get('form_loaded_at'));
@@ -248,10 +249,21 @@ exports.handler = async function(event) {
             body: JSON.stringify({ error: 'Please wait a few seconds, then complete the form and try again.' })
         };
     }
-    if (!name || !validEmail || !validPhone || !ALLOWED_COUNTIES.has(county) || !details || details.length < 10 || consent !== 'on' || !validEvent || !validGround || !validPackage) {
+    const validationErrors = [];
+    if (!name) validationErrors.push('Enter your full name.');
+    if (!validEmail) validationErrors.push('Enter a valid email address.');
+    if (!validPhone) validationErrors.push('Enter a valid phone number with at least 7 characters.');
+    if (!ALLOWED_COUNTIES.has(county)) validationErrors.push('Select your county.');
+    if (!details) validationErrors.push('Tell us about your event.');
+    if (rawDetails.length > 3000) validationErrors.push('Event details must be no longer than 3,000 characters.');
+    if (consent !== 'on') validationErrors.push('Tick the privacy consent box to submit your enquiry.');
+    if (!validEvent) validationErrors.push('Choose a valid event type.');
+    if (!validGround) validationErrors.push('Choose a valid ground type.');
+    if (!validPackage) validationErrors.push('Choose a valid package option.');
+    if (validationErrors.length > 0) {
         return {
             statusCode: 400,
-            body: JSON.stringify({ error: 'Please complete all required fields with valid details and try again.' })
+            body: JSON.stringify({ error: validationErrors.join(' ') })
         };
     }
 

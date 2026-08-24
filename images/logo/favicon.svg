@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Vertex Marquees">
+  <rect width="512" height="512" rx="96" fill="#0a0a0a"/>
+  <path d="M92 266c72-24 117-78 164-164 47 86 92 140 164 164" fill="none" stroke="#c9a96e" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M92 266h328M132 266v126M380 266v126M256 102v164" fill="none" stroke="#f5f5f5" stroke-width="20" stroke-linecap="round"/>
+  <path d="M150 392h212" fill="none" stroke="#c9a96e" stroke-width="20" stroke-linecap="round"/>
+</svg>
